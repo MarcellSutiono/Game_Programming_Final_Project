@@ -6,7 +6,7 @@ public class PlayerData : ScriptableObject
 {
     //--- Movement ---
     private float playerSpd = 3f;
-    private float jumpPower = 5f;
+    private float jumpPower = 8f;
     private bool isJump = false;
 
     public static PlayerData instance;
