@@ -8,7 +8,10 @@ public class PlayerMovement : MonoBehaviour
     private PlayerData pd;
     private Rigidbody2D rb;
     private PlayerInput input;
+    private Animator anim;
 
+    private bool right = true;
+    private bool attack = false;
     private void Awake()
     {
         input = new PlayerInput();
@@ -19,6 +22,13 @@ public class PlayerMovement : MonoBehaviour
         input.Enable();
         input.Movement.Jump.performed += Jump_performed;
         input.Movement.Jump.canceled += Jump_canceled;
+        input.Movement.Attack.performed += Attack_performed;
+    }
+
+    private void Attack_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        anim.SetTrigger("Attack");
+        attack = true;
     }
 
     private void Jump_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -39,11 +49,38 @@ public class PlayerMovement : MonoBehaviour
     {
         pd = PlayerData.getInstance();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        move();
+    }
+
+    private void move()
+    {
         float horizontal = input.Movement.Move.ReadValue<float>();
+        flip(horizontal);
         rb.velocity = new Vector2(horizontal * pd.PlayerSpd, rb.velocity.y);
+
+        if (horizontal != 0)
+        {
+            anim.SetBool("isRun", true);
+        }
+        else
+        {
+            anim.SetBool("isRun", false);
+        }
+    }
+
+    private void flip(float moveVal)
+    {
+        if (moveVal < 0 && right || moveVal > 0 && !right)
+        {
+            right = !right;
+            Vector3 scale = transform.localScale;
+            scale.y *= -1;
+            transform.localScale = scale;
+        }
     }
 }
