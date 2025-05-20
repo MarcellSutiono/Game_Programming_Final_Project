@@ -12,6 +12,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool right = true;
     private bool attack = false;
+
+    //Ground Check
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask ground;
+
     private void Awake()
     {
         input = new PlayerInput();
@@ -33,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if(!pd.IsJump)
+        if(!pd.IsJump && inGround())
         {
             rb.velocity = new Vector2(rb.velocity.x, pd.JumpPower);
             pd.IsJump = true;
@@ -82,5 +87,10 @@ public class PlayerMovement : MonoBehaviour
             scale.y *= -1;
             transform.localScale = scale;
         }
+    }
+
+    private bool inGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, ground);
     }
 }

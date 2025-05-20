@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     //--- Movement ---
-    private float playerSpd = 3f;
+    private float playerSpd = 3.5f;
     private float jumpPower = 8f;
     private bool isJump = false;
 
