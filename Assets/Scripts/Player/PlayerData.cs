@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     //--- Movement ---
-    private float playerSpd = 3.5f;
-    private float jumpPower = 8f;
+    private float playerSpd = 4.5f;
+    private float jumpPower = 6.5f;
+    private float playerPow = 2f;
     private bool isJump = false;
 
     //--- Gems ---
@@ -14,6 +15,9 @@ public class PlayerData : ScriptableObject
     private bool blueGem = false;
     private bool orangeGem = false;
     private bool whiteGem = false;
+
+    //--- Power ---
+    private bool isSun = false;
 
     public static PlayerData instance;
 
@@ -28,11 +32,13 @@ public class PlayerData : ScriptableObject
     }
 
     public float PlayerSpd { get { return playerSpd; }}
-    public float JumpPower { get { return jumpPower; }}
+    public float JumpPower { get { return jumpPower; } set { jumpPower = value; } }
+    public float PlayerPow { get { return playerPow; } set { playerPow = value; } }
     public bool IsJump { get { return isJump; } set { isJump = value; } }
     public bool RedGem { get { return redGem; } set { redGem = value; } }
     public bool BlueGem { get { return blueGem; } set { blueGem = value; } }
     public bool OrangeGem { get { return orangeGem; } set { orangeGem = value; } }
     public bool WhiteGem { get { return whiteGem; } set { whiteGem = value; } }
+    public bool IsSun { get { return IsSun; } set { IsSun = value; } }
 
 }

@@ -1,23 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MrBunny : MonoBehaviour
 {
     [SerializeField] private GameObject textDamage;
-    private int level = 5;
-    private int entityHp;
+    [SerializeField] private GameObject jumpMelon;
+
+    private PlayerData pd;
+    [SerializeField] private float entityHp;
 
     void Start()
     {
-        entityHp = level * 10;
+        pd = PlayerData.getInstance();
     }
 
     void Update()
     {
         if (entityHp <= 0)
         {
+            GameObject jm =  Instantiate(jumpMelon, transform.position, Quaternion.identity);
+            Rigidbody2D jmRB = jm.GetComponent<Rigidbody2D>();
+
+            if(jmRB != null)
+            {
+                Vector2 force = new Vector2(1f, 5f);
+                jmRB.AddForce(force * 100);
+            }
+
             Destroy(gameObject);
         }
     }
@@ -25,8 +37,17 @@ public class MrBunny : MonoBehaviour
     {
         if(col.collider.CompareTag("Hat"))
         {
-            Instantiate(textDamage, transform.position, Quaternion.identity);
-            entityHp -= 10;
+            GameObject dmg = Instantiate(textDamage, transform.position, Quaternion.identity);
+            dmg.GetComponent<TextMeshPro>().text = pd.PlayerPow.ToString();
+            entityHp -= pd.PlayerPow;
         }
+    }
+
+    public void sunDamage()
+    {
+        float totalDmg = (pd.PlayerPow * 5f);
+        entityHp -= totalDmg;
+        GameObject dmg = Instantiate(textDamage, transform.position, Quaternion.identity);
+        dmg.GetComponent<TextMeshPro>().text = totalDmg.ToString();
     }
 }
