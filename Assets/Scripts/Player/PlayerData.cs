@@ -19,6 +19,9 @@ public class PlayerData : ScriptableObject
     //--- Power ---
     private bool isSun = false;
 
+    //--- Others ---
+    private int score = 0;
+
     public static PlayerData instance;
 
     public static PlayerData getInstance()
@@ -39,6 +42,6 @@ public class PlayerData : ScriptableObject
     public bool BlueGem { get { return blueGem; } set { blueGem = value; } }
     public bool OrangeGem { get { return orangeGem; } set { orangeGem = value; } }
     public bool WhiteGem { get { return whiteGem; } set { whiteGem = value; } }
-    public bool IsSun { get { return IsSun; } set { IsSun = value; } }
-
+    public bool IsSun { get { return isSun; } set { isSun = value; } }
+    public int Score { get { return score; } set { score = value; } }
 }

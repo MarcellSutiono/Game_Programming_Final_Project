@@ -31,6 +31,7 @@ public class MrBunny : MonoBehaviour
             }
 
             Destroy(gameObject);
+            pd.Score += 1000;
         }
     }
     private void OnCollisionEnter2D(Collision2D col)

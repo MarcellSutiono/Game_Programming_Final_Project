@@ -25,6 +25,7 @@ public class JumpMelon : MonoBehaviour
             {
                 Destroy(gameObject);
                 pd.JumpPower += 1.5f;
+                pd.Score += 200;
             }
         }
     }

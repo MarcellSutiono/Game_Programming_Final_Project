@@ -21,6 +21,8 @@ public class Sun : MonoBehaviour
             globalLight.intensity = 0.8f;
             pd.PlayerPow += 4f;
             pd.IsSun = true;
+            PlayerPrefs.SetInt("sun", 1);
+            pd.Score += 2000;
         }
     }
 }
