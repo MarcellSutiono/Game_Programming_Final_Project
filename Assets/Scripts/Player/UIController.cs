@@ -13,6 +13,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image blue;
     [SerializeField] private Image orange;
     [SerializeField] private Image white;
+    [SerializeField] private GameObject pauseMenu;
+
+    [SerializeField] private GameObject redGO;
+    [SerializeField] private GameObject blueGO;
+    [SerializeField] private GameObject orangeGO;
+    [SerializeField] private GameObject whiteGO;
 
     private void Start()
     {
@@ -42,19 +48,42 @@ public class UIController : MonoBehaviour
 
         if (pd.RedGem)
         {
+            Destroy(redGO);
             red.color = Color.white;
         }
         else if (pd.BlueGem)
         {
+            Destroy(blueGO);
             blue.color = Color.white;
         }
         else if (pd.OrangeGem)
         {
+            Destroy(orangeGO);
             orange.color = Color.white;
         }
         else if (pd.WhiteGem)
         {
+            Destroy(whiteGO);
             white.color = Color.white;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseGame();
+        }
+    }
+
+    private void pauseGame()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+
+        if (pauseMenu.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
         }
     }
 }

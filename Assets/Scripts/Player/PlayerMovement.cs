@@ -10,8 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput input;
     private Animator anim;
-
-    private bool attack = false;
+    private GameSound gs;
 
     //Ground Check
     [SerializeField] private Transform groundCheck;
@@ -24,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         input = new PlayerInput();
     }
 
@@ -34,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
         input.Movement.Jump.canceled += Jump_canceled;
         input.Movement.Attack.performed += Attack_performed;
         input.Movement.Aim.performed += Aim_performed;
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
     }
 
     private void Aim_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -53,8 +58,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!isAiming)
         {
+            gs.PlaySFX(gs.throwCap);
             anim.SetTrigger("Attack");
-            attack = true;
         }
     }
 
@@ -62,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!pd.IsJump && inGround())
         {
+            gs.PlaySFX(gs.jump);
             rb.velocity = new Vector2(rb.velocity.x, pd.JumpPower);
             pd.IsJump = true;
         }
@@ -79,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         aim = GetComponent<LineRenderer>();
+        gs = FindObjectOfType<GameSound>();
     }
 
     private void Update()
@@ -144,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if(Input.GetMouseButtonDown(0))
                     {
+                        gs.PlaySFX(gs.beam);
                         hit.collider.gameObject.GetComponent<MrBunny>().sunDamage();
                     }
                 }

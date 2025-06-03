@@ -9,10 +9,12 @@ public class GemCollect : MonoBehaviour
     [SerializeField] private Image currGem;
     [SerializeField] private string color;
     private PlayerData pd;
+    private GameSound gs;
 
     private void Start()
     {
         pd = PlayerData.getInstance();
+        gs = FindObjectOfType<GameSound>();
     }
 
     void Update()
@@ -24,6 +26,7 @@ public class GemCollect : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
+            gs.PlaySFX(gs.gemCollect);
             if (color == "red")
             {
                 pd.RedGem = true;

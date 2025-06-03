@@ -6,11 +6,13 @@ public class JumpMelon : MonoBehaviour
 {
     private PlayerData pd;
     private bool canCollect = false;
+    private GameSound gs;
 
     private void Start()
     {
         pd = PlayerData.getInstance();
         StartCoroutine(collectable());
+        gs = FindObjectOfType<GameSound>();
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -23,6 +25,7 @@ public class JumpMelon : MonoBehaviour
             }
             else
             {
+                gs.PlaySFX(gs.jumpMelon);
                 Destroy(gameObject);
                 pd.JumpPower += 1.5f;
                 pd.Score += 200;

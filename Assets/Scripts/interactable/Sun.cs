@@ -7,16 +7,19 @@ public class Sun : MonoBehaviour
 {
     [SerializeField] private Light2D globalLight;
     private PlayerData pd;
+    private GameSound gs;
 
     private void Start()
     {
         pd = PlayerData.getInstance();
+        gs = FindObjectOfType<GameSound>();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.CompareTag("Player"))
         {
+            gs.PlaySFX(gs.theSun);
             Destroy(gameObject);
             globalLight.intensity = 0.8f;
             pd.PlayerPow += 4f;

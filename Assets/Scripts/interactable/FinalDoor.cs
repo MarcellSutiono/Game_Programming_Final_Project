@@ -7,6 +7,7 @@ public class FinalDoor : MonoBehaviour
     [SerializeField] private Transform dest;
     [SerializeField] private GameObject player;
     [SerializeField] private Sprite insertedDoor;
+    [SerializeField] private GameObject win;
 
     private PlayerData pd;
     private bool isOpen = false;
@@ -27,13 +28,10 @@ public class FinalDoor : MonoBehaviour
             inRange = false;
         }
     }
-
     void Start()
     {
         pd = PlayerData.getInstance();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (inRange && (pd.RedGem && pd.BlueGem && pd.OrangeGem && pd.WhiteGem) && Input.GetKeyDown(KeyCode.F))
@@ -46,7 +44,8 @@ public class FinalDoor : MonoBehaviour
             }
             else
             {
-                player.transform.position = dest.position;
+                Time.timeScale = 0f;
+                win.SetActive(true);
             }
         }
     }
